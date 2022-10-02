@@ -10,15 +10,9 @@
         "magento",
         "Datadog",
         "Logger",
-        "Magento 2",
-        "Exception",
-        "Emarketa"
+        "Magento 2"
     ],
-    "authors": [
-        {
-            "name": "Andy Myers (Emarketa)",
-            "email": "andymyers@emarketa.com"
-        },
+    "authors": [       
         {
             "name": "Mark DeSimone (evo8fx)",
             "email": "evo8fx@gmail.com"
