@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <m2ddlogger>
+            <datadog>
+                <ddtags>
+                    <env><![CDATA[]]></env>
+                    <owner><![CDATA[]]></owner>
+                </ddtags>
+                <http_endpoint>
+                    <cronenabled>0</cronenabled>
+                    <cronmax>50</cronmax>
+                    <enabled_in_developer_mode>0</enabled_in_developer_mode>
+                    <acceptable_level>300</acceptable_level>
+                    <account_region>EU</account_region>
+                    <intake_url>
+                        <USA><![CDATA[https://http-intake.logs.datadoghq.com/v1/]]></USA>
+                        <EU><![CDATA[https://http-intake.logs.datadoghq.eu/v1/]]></EU>
+                    </intake_url>
+                    <api_key><![CDATA[]]></api_key>
+                    <httpenabled>0</httpenabled>
+                </http_endpoint>
+                <file>
+                    <enabled>0</enabled>
+                    <log_file_path><![CDATA[/var/log/datadog.log.json]]></log_file_path>
+                    <enabled_in_developer_mode>0</enabled_in_developer_mode>
+                    <acceptable_level>300</acceptable_level>
+                </file>
+            </datadog>
+        </m2ddlogger>
+    </default>
+</config>

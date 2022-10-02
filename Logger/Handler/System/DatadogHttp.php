@@ -1,0 +1,147 @@
+<?php
+/**
+ * Emarketa.
+ */
+
+namespace Evo8fx\M2ddlogger\Logger\Handler\System;
+
+use Evo8fx\M2ddlogger\Formatter\DatadogFormatter;
+use Evo8fx\M2ddlogger\Model\Api\Record\DatadogHttpInterface;
+use Exception;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\State;
+use Magento\Framework\Filesystem\DriverInterface;
+use Magento\Framework\Logger\Handler\Base;
+use Monolog\Logger;
+
+/**
+ * Class Datadog
+ *
+ * @package Evo8fx\M2ddlogger\Logger\Handler\System
+ */
+class DatadogHttp extends Base
+{
+    const CONFIG_HTTP_ENABLED = 'm2ddlogger/datadog/http_endpoint/httpenabled';
+    const CONFIG_CRON_ENABLED = 'm2ddlogger/datadog/http_endpoint/cronenabled';
+    const CONFIG_CRON_MAX = 'm2ddlogger/datadog/http_endpoint/cronmax';
+    const CONFIG_DEV_MODE_ENABLE = 'm2ddlogger/datadog/http_endpoint/enabled_in_developer_mode';
+    const CONFIG_ACCEPTABLE_LEVEL = 'm2ddlogger/datadog/http_endpoint/acceptable_level';
+
+
+    /**
+     * @var DatadogHttpInterface
+     */
+    private $client;
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $config;
+    /**
+     * @var State
+     */
+    private $state;
+
+    /**
+     * Datadog constructor.
+     * @param DatadogFormatter $formatter
+     * @param ScopeConfigInterface $config
+     * @param State $state
+     * @param DatadogHttpInterface $client
+     * @param DriverInterface $filesystem
+     * @param string $filePath
+     * @param string $fileName
+     * @throws Exception
+     */
+    public function __construct(
+        DatadogFormatter $formatter,
+        ScopeConfigInterface $config,
+        State $state,
+        DatadogHttpInterface $client,
+        DriverInterface $filesystem,
+        $filePath = null,
+        $fileName = null
+    ) {
+        parent::__construct($filesystem, $filePath, $fileName);
+        $this->setFormatter($formatter);
+        $this->client = $client;
+        $this->config = $config;
+        $this->state = $state;
+    }
+
+    /**
+     * Method write
+     *
+     * @param array $record
+     */
+    public function write(array $record)
+    {
+        $record['ddtype'] = "http_endpoint";
+        $recordForEndpoint = $this->getFormatter()->format($record);
+        $this->client->sendRecordToHttpEndpoint($recordForEndpoint);
+    }
+
+    /**
+     * Method isHandling
+     *
+     * @param array $record
+     * @return bool
+     */
+    public function isHandling(array $record)
+    {
+        return $this->isHttpEnabled() &&
+            $this->getDeveloperModePolicyResult() &&
+            ($record['level'] >= $this->getMinimumLevel());
+    }
+
+    /**
+     * Method isHttpEnabled
+     *
+     * @return bool
+     */
+    public function isHttpEnabled()
+    {
+        return (bool) (int) $this->config->getValue(self::CONFIG_HTTP_ENABLED);
+    }
+
+    /**
+     * Method isHttpEnabled
+     *
+     * @return bool
+     */
+    public function isCronEnabled(): bool
+    {
+        return (bool) (int) $this->config->getValue(self::CONFIG_CRON_ENABLED);
+    }
+
+    /**
+     * Method getCronMaxRecords
+     *
+     * @return int
+     */
+    public function getCronMaxRecords(): int
+    {
+        return (int) $this->config->getValue(self::CONFIG_CRON_MAX);
+    }
+
+    /**
+     * Method getMinimumLevel
+     *
+     * @return int
+     */
+    public function getMinimumLevel()
+    {
+        $level = $this->config->getValue(self::CONFIG_ACCEPTABLE_LEVEL);
+        return empty($level) ? Logger::WARNING : (int) $level;
+    }
+    /**
+     * Method getDeveloperModePolicyResult
+     *
+     * @return bool
+     */
+    public function getDeveloperModePolicyResult()
+    {
+        $isDeveloperMode = $this->state->getMode() == "developer";
+        $enabledInDeveloperMode = (bool) (int) $this->config->getValue(self::CONFIG_DEV_MODE_ENABLE);
+        return $isDeveloperMode ? $enabledInDeveloperMode : true;
+    }
+}
