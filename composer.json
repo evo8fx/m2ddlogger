@@ -1,9 +1,9 @@
 {
-    "name": "evo8fx/magento-datadog-logger",
-    "version": "0.1.8",
+    "name": "evo8fx/m2ddlogger",
+    "version": "0.1.1",
     "license": "GPL-3.0",
     "type": "magento2-module",
-    "homepage": "https://github.com/evo8fx/magento-datadog-logger",
+    "homepage": "https://github.com/evo8fx/m2ddlogger",
     "description": "Magento 2 module. Sends event, error and API logs to Datadog.",
     "keywords": [
         "composer-installer",
@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Evo8fx\\DatdogLogger\\": ""
+            "Evo8fx\\M2ddlogger\\": ""
         },
         "files": [
             "registration.php"
