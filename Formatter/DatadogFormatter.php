@@ -39,8 +39,8 @@ class DatadogFormatter extends AbstractFormatter implements FormatterInterface
          ScopeConfigInterface $config,
          StoreManagerInterface $storeManager
     ) {
+         parent::__construct($config, $storeManager);
          $this->config = $config;
-         parent::__construct($config);
          $this->storeManager = $storeManager;
          $this->log_file_path = $this->config->getValue(self::CONFIG_LOG_FILE_PATH);
     }

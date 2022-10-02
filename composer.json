@@ -1,6 +1,6 @@
 {
     "name": "evo8fx/m2ddlogger",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "license": "GPL-3.0",
     "type": "magento2-module",
     "homepage": "https://github.com/evo8fx/m2ddlogger",
@@ -12,7 +12,7 @@
         "Logger",
         "Magento 2"
     ],
-    "authors": [       
+    "authors": [
         {
             "name": "Mark DeSimone (evo8fx)",
             "email": "evo8fx@gmail.com"
