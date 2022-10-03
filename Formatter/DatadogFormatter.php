@@ -19,7 +19,7 @@ use Monolog\Utils;
 class DatadogFormatter extends AbstractFormatter implements FormatterInterface
 {
     const CONFIG_LOG_FILE_PATH = 'm2ddlogger/event_logger/file/log_file_path';
-    const CONFIG_DD_TAGS = 'm2ddlogger/ddtags';
+    const CONFIG_DD_TAGS = 'm2ddlogger/event_logger/ddtags';
     /**
      * @var ScopeConfigInterface
      */

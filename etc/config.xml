@@ -7,6 +7,12 @@
                     <env><![CDATA[]]></env>
                     <owner><![CDATA[]]></owner>
                 </ddtags>
+                <file>
+                    <enabled>0</enabled>
+                    <log_file_path><![CDATA[/var/log/datadog.log.json]]></log_file_path>
+                    <enabled_in_developer_mode>0</enabled_in_developer_mode>
+                    <acceptable_level>300</acceptable_level>
+                </file>
                 <http_endpoint>
                     <cronenabled>0</cronenabled>
                     <cronmax>50</cronmax>
@@ -20,12 +26,6 @@
                     <api_key><![CDATA[]]></api_key>
                     <httpenabled>0</httpenabled>
                 </http_endpoint>
-                <file>
-                    <enabled>0</enabled>
-                    <log_file_path><![CDATA[/var/log/datadog.log.json]]></log_file_path>
-                    <enabled_in_developer_mode>0</enabled_in_developer_mode>
-                    <acceptable_level>300</acceptable_level>
-                </file>
             </event_logger>
             <api_logger>
                 <enabled>0</enabled>
