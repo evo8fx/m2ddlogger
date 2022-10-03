@@ -1,12 +1,12 @@
 <?php
-namespace SyncIt\ApiRestLog\Model\Logger;
+namespace Evo8fx\M2ddlogger\Model\Logger;
 
 use Magento\Framework\Logger\Handler\Base;
 use \Monolog\Logger;
 
 /**
  * Class Handler
- * @package SyncIt\ApiRestLog\Model\Logger
+ * @package Evo8fx\M2ddlogger\Model\Logger
  */
 class Handler extends Base
 {

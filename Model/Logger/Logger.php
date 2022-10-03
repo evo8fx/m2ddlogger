@@ -1,9 +1,9 @@
 <?php
-namespace SyncIt\ApiRestLog\Model\Logger;
+namespace Evo8fx\M2ddlogger\Model\Logger;
 
 /**
  * Class Logger
- * @package SyncIt\ApiRestLog\Model\Logger
+ * @package Evo8fx\M2ddlogger\Model\Logger
  */
 class Logger extends \Monolog\Logger
 {
