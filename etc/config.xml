@@ -27,6 +27,10 @@
                     <acceptable_level>300</acceptable_level>
                 </file>
             </datadog>
+            <apilogs>
+                <enabled>0</enabled>
+                <allowed_log_headers>1</allowed_log_headers>
+            </apilogs>
         </m2ddlogger>
     </default>
 </config>
