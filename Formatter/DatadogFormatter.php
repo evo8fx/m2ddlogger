@@ -18,7 +18,7 @@ use Monolog\Utils;
  */
 class DatadogFormatter extends AbstractFormatter implements FormatterInterface
 {
-    //const CONFIG_LOG_FILE_PATH = 'm2ddlogger/event_log/file/log_file_path';
+    const CONFIG_LOG_FILE_PATH = 'm2ddlogger/event_log/file/log_file_path';
     const CONFIG_DD_TAGS = 'm2ddlogger/ddtags';
     /**
      * @var ScopeConfigInterface
@@ -39,10 +39,9 @@ class DatadogFormatter extends AbstractFormatter implements FormatterInterface
          ScopeConfigInterface $config,
          StoreManagerInterface $storeManager
     ) {
-         parent::__construct($config);
          $this->config = $config;
          $this->storeManager = $storeManager;
-         /*$this->log_file_path = $this->config->getValue(self::CONFIG_LOG_FILE_PATH);*/
+         $this->log_file_path = $this->config->getValue(self::CONFIG_LOG_FILE_PATH);
     }
 
     /**
@@ -94,10 +93,9 @@ class DatadogFormatter extends AbstractFormatter implements FormatterInterface
           'hostname' => gethostname(),
           'host_type' => $dd_tags['host_type'],
           'service' => $dd_tags['service'],
-          'env' => $dd_tags['env']
+          'env' => $dd_tags['env'],
+          'log_file_path' => $this->log_file_path
         ];
-
-        //'log_file_path' => $this->log_file_path
     }
 
     /**
