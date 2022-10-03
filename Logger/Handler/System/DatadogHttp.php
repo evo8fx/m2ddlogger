@@ -21,11 +21,11 @@ use Monolog\Logger;
  */
 class DatadogHttp extends Base
 {
-    const CONFIG_HTTP_ENABLED = 'm2ddlogger/datadog/http_endpoint/httpenabled';
-    const CONFIG_CRON_ENABLED = 'm2ddlogger/datadog/http_endpoint/cronenabled';
-    const CONFIG_CRON_MAX = 'm2ddlogger/datadog/http_endpoint/cronmax';
-    const CONFIG_DEV_MODE_ENABLE = 'm2ddlogger/datadog/http_endpoint/enabled_in_developer_mode';
-    const CONFIG_ACCEPTABLE_LEVEL = 'm2ddlogger/datadog/http_endpoint/acceptable_level';
+    const CONFIG_HTTP_ENABLED = 'm2ddlogger/event_logger/http_endpoint/httpenabled';
+    const CONFIG_CRON_ENABLED = 'm2ddlogger/event_logger/http_endpoint/cronenabled';
+    const CONFIG_CRON_MAX = 'm2ddlogger/event_logger/http_endpoint/cronmax';
+    const CONFIG_DEV_MODE_ENABLE = 'm2ddlogger/event_logger/http_endpoint/enabled_in_developer_mode';
+    const CONFIG_ACCEPTABLE_LEVEL = 'm2ddlogger/event_logger/http_endpoint/acceptable_level';
 
 
     /**

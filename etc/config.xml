@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <m2ddlogger>
-            <datadog>
+            <event_logger>
                 <ddtags>
                     <env><![CDATA[]]></env>
                     <owner><![CDATA[]]></owner>
@@ -26,11 +26,11 @@
                     <enabled_in_developer_mode>0</enabled_in_developer_mode>
                     <acceptable_level>300</acceptable_level>
                 </file>
-            </datadog>
-            <apilogs>
+            </event_logger>
+            <api_logger>
                 <enabled>0</enabled>
                 <allowed_log_headers>1</allowed_log_headers>
-            </apilogs>
+            </api_logger>
         </m2ddlogger>
     </default>
 </config>

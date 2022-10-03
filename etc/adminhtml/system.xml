@@ -9,9 +9,31 @@
             <label>Datadog Logger</label>
             <tab>monkeysports</tab>
             <resource>Evo8fx_M2ddlogger::m2ddlogger_config</resource>
-            <group id="datadog" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Datadog</label>
+            <group id="event_logger" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Event Logging</label>
                 <attribute type="expanded">1</attribute>
+                <group id="ddtags" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <attribute type="expanded">1</attribute>
+                    <label>Datadog Tags</label>
+                    <field id="env" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Env</label>
+                        <comment><![CDATA[
+                            Please add the Environment for this server.  (prod,dev)
+
+                            <br><br>
+                            Example: <code>env:dev</code><br><br>
+                        ]]>
+                        </comment>
+                    </field>
+                    <field id="owner" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Owner</label>
+                        <comment><![CDATA[
+                            Don't use this.  Not applicable to Monkey.
+
+                        ]]>
+                        </comment>
+                    </field>
+                </group>
                 <group id="file" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <attribute type="expanded">1</attribute>
                     <label>Write Logs To JSON file</label>
@@ -100,7 +122,7 @@
                     </field>
                 </group>
             </group>
-            <group id="apilogs" translate="label" type="text" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1" >
+            <group id="api_logger" translate="label" type="text" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1" >
                 <label>Rest API logging</label>
                 <field id="enabled" translate="label" type="select" sortOrder="11" showInDefault="1" showInStore="1" showInWebsite="1" >
                     <label>Enable</label>
@@ -112,6 +134,7 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
+
         </section>
     </system>
 </config>

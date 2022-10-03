@@ -20,8 +20,8 @@ class RestApiLog
     /**
      * Store Config Ids
      */
-    const API_LOGGER_ENABLED = 'syncit_api_rest_logger/general/enabled';
-    const API_LOGGER_ALLOWED_LOG_HEADERS = 'syncit_api_rest_logger/general/allowed_log_headers';
+    const API_LOGGER_ENABLED = 'm2ddlogger/api_logger/enabled';
+    const API_LOGGER_ALLOWED_LOG_HEADERS = 'm2ddlogger/api_logger/allowed_log_headers';
 
     /**
      * @var Logger
