@@ -10,6 +10,7 @@ use \Magento\Store\Model\ScopeInterface;
 use \Magento\Store\Model\StoreManagerInterface;
 use \Magento\Webapi\Controller\Rest;
 use Evo8fx\M2ddlogger\Model\Logger\Logger;
+use Evo8fx\M2ddlogger\Formatter\DatadogFormatter;
 
 /**
  * Class RestApiLog
@@ -22,6 +23,10 @@ class RestApiLog
      */
     const API_LOGGER_ENABLED = 'm2ddlogger/api_logger/enabled';
     const API_LOGGER_ALLOWED_LOG_HEADERS = 'm2ddlogger/api_logger/allowed_log_headers';
+    const API_LOGGER_EVENT_AS = 'm2ddlogger/api_logger/log_api_event_as';
+    const API_LOGGER_LOG_REQUEST = 'm2ddlogger/api_logger/api_event_log_request';
+    const API_LOGGER_LOG_RESPONSE = 'm2ddlogger/api_logger/api_event_log_response';
+    const API_LOGGER_FORMAT = 'm2ddlogger/api_logger/api_event_log_format';
 
     /**
      * @var Logger
@@ -98,8 +103,14 @@ class RestApiLog
                 $requestedLogData['header'] = $this->getHeadersData($request->getHeaders());
             }
 
+            // plain text logs
+            //$formattedLogData = 'Response = ' . $this->_serializer->serialize($requestedLogData);
+
+            // convert log to JSON format
+            $formattedLogData = $this->toJson('Request = ' . $this->_serializer->serialize($requestedLogData));
+
             // Logging Data
-            $this->_logger->debug('Request = ' . $this->_serializer->serialize($requestedLogData));
+            $this->_logger->debug($formattedLogData);
         } catch (\Exception $exception) {
             $this->_logger->critical($exception->getMessage(), ['exception' => $exception]);
         }
@@ -130,8 +141,16 @@ class RestApiLog
                 $requestedLogData['header'] = $this->getHeadersData($response->getHeaders());
             }
 
+
+            // plain text logs
+            //$formattedLogData = 'Response = ' . $this->_serializer->serialize($requestedLogData);
+
+            // convert log to JSON format
+            $formattedLogData = $this->toJson('Response = ' . $this->_serializer->serialize($requestedLogData));
+
+
             // Logging Data
-            $this->_logger->debug('Response = ' . $this->_serializer->serialize($requestedLogData));
+            $this->_logger->info($json_logData);
         } catch (\Exception $exception) {
             $this->_logger->critical($exception->getMessage(), ['exception' => $exception]);
         }
@@ -151,5 +170,17 @@ class RestApiLog
             $headerLogData[$header->getFieldName()] = $header->getFieldValue();
         }
         return $headerLogData;
+    }
+
+    /**
+     * Method toJson
+     *
+     * @param mixed $data
+     * @return string
+     */
+    protected function toJson($data)
+    {
+        $formatter = new JsonFormatter();
+        return $formatter->format($data);
     }
 }
