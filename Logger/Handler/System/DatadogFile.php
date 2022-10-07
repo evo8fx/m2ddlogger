@@ -20,10 +20,10 @@ use Monolog\Logger;
  */
 class DatadogFile extends Base
 {
-    const CONFIG_ENABLED = 'm2ddlogger/datadog/file/enabled';
-    const CONFIG_LOG_FILE_PATH = 'm2ddlogger/datadog/file/log_file_path';
-    const CONFIG_DEV_MODE_ENABLE = 'm2ddlogger/datadog/file/enabled_in_developer_mode';
-    const CONFIG_ACCEPTABLE_LEVEL = 'm2ddlogger/datadog/file/acceptable_level';
+    const CONFIG_ENABLED = 'm2ddlogger/event_logger/file/enabled';
+    const CONFIG_LOG_FILE_PATH = 'm2ddlogger/event_logger/file/log_file_path';
+    const CONFIG_DEV_MODE_ENABLE = 'm2ddlogger/event_logger/file/enabled_in_developer_mode';
+    const CONFIG_ACCEPTABLE_LEVEL = 'm2ddlogger/event_logger/file/acceptable_level';
 
     /**
      * @var string

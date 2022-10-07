@@ -1,37 +1,38 @@
 <?php
 /**
- * Emarketa.
+ * Evo8fx.
  */
 
 namespace Evo8fx\M2ddlogger\Logger\Handler\System;
 
 use Evo8fx\M2ddlogger\Formatter\DatadogFormatter;
-use Evo8fx\M2ddlogger\Model\Api\Record\DatadogHttpInterface;
-use Exception;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\State;
 use Magento\Framework\Filesystem\DriverInterface;
 use Magento\Framework\Logger\Handler\Base;
+use Magento\Framework\Logger\Handler\Exception;
 use Monolog\Logger;
 
 /**
- * Class Datadog
+ * Class DatadogApiFile
  *
  * @package Evo8fx\M2ddlogger\Logger\Handler\System
  */
-class DatadogHttp extends Base
+class DatadogApiFile extends Base
 {
-    const CONFIG_HTTP_ENABLED = 'm2ddlogger/event_logger/http_endpoint/httpenabled';
-    const CONFIG_CRON_ENABLED = 'm2ddlogger/event_logger/http_endpoint/cronenabled';
-    const CONFIG_CRON_MAX = 'm2ddlogger/event_logger/http_endpoint/cronmax';
-    const CONFIG_DEV_MODE_ENABLE = 'm2ddlogger/event_logger/http_endpoint/enabled_in_developer_mode';
-    const CONFIG_ACCEPTABLE_LEVEL = 'm2ddlogger/event_logger/http_endpoint/acceptable_level';
-
+    const CONFIG_ENABLED = 'm2ddlogger/event_logger/file/enabled';
+    const CONFIG_LOG_FILE_PATH = 'm2ddlogger/event_logger/file/log_file_path';
+    const CONFIG_DEV_MODE_ENABLE = 'm2ddlogger/event_logger/file/enabled_in_developer_mode';
+    const CONFIG_ACCEPTABLE_LEVEL = 'm2ddlogger/event_logger/file/acceptable_level';
 
     /**
-     * @var DatadogHttpInterface
+     * @var string
      */
-    private $client;
+    protected $fileName = '/var/log/datadog.restapi.json';
+    /**
+     * @var Exception
+     */
+    private $exceptionHandler;
     /**
      * @var ScopeConfigInterface
      */
@@ -42,42 +43,38 @@ class DatadogHttp extends Base
     private $state;
 
     /**
-     * Datadog constructor.
+     * DatadogFile constructor.
+     *
      * @param DatadogFormatter $formatter
      * @param ScopeConfigInterface $config
      * @param State $state
-     * @param DatadogHttpInterface $client
      * @param DriverInterface $filesystem
      * @param string $filePath
-     * @param string $fileName
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct(
         DatadogFormatter $formatter,
         ScopeConfigInterface $config,
         State $state,
-        DatadogHttpInterface $client,
         DriverInterface $filesystem,
-        $filePath = null,
-        $fileName = null
+        $filePath = null
     ) {
-        parent::__construct($filesystem, $filePath, $fileName);
+        parent::__construct($filesystem, $filePath);
         $this->setFormatter($formatter);
-        $this->client = $client;
         $this->config = $config;
         $this->state = $state;
     }
 
     /**
-     * Method write
+     * Method handle
      *
      * @param array $record
+     * @return bool
      */
-    public function write(array $record)
+    public function handle(array $record)
     {
-        $record['ddtype'] = "http_endpoint";
-        $recordForEndpoint = $this->getFormatter()->format($record);
-        $this->client->sendRecordToHttpEndpoint($recordForEndpoint);
+        $record['ddtype'] = "file";
+        return parent::handle($record);
     }
 
     /**
@@ -88,39 +85,19 @@ class DatadogHttp extends Base
      */
     public function isHandling(array $record)
     {
-        return $this->isHttpEnabled() &&
+        return $this->isEnabled() &&
             $this->getDeveloperModePolicyResult() &&
             ($record['level'] >= $this->getMinimumLevel());
     }
 
     /**
-     * Method isHttpEnabled
+     * Method isEnabled
      *
      * @return bool
      */
-    public function isHttpEnabled()
+    public function isEnabled()
     {
-        return (bool) (int) $this->config->getValue(self::CONFIG_HTTP_ENABLED);
-    }
-
-    /**
-     * Method isHttpEnabled
-     *
-     * @return bool
-     */
-    public function isCronEnabled(): bool
-    {
-        return (bool) (int) $this->config->getValue(self::CONFIG_CRON_ENABLED);
-    }
-
-    /**
-     * Method getCronMaxRecords
-     *
-     * @return int
-     */
-    public function getCronMaxRecords(): int
-    {
-        return (int) $this->config->getValue(self::CONFIG_CRON_MAX);
+        return (bool) (int) $this->config->getValue(self::CONFIG_ENABLED);
     }
 
     /**
@@ -133,6 +110,7 @@ class DatadogHttp extends Base
         $level = $this->config->getValue(self::CONFIG_ACCEPTABLE_LEVEL);
         return empty($level) ? Logger::WARNING : (int) $level;
     }
+
     /**
      * Method getDeveloperModePolicyResult
      *
@@ -143,5 +121,18 @@ class DatadogHttp extends Base
         $isDeveloperMode = $this->state->getMode() == "developer";
         $enabledInDeveloperMode = (bool) (int) $this->config->getValue(self::CONFIG_DEV_MODE_ENABLE);
         return $isDeveloperMode ? $enabledInDeveloperMode : true;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName(): string
+    {
+        return $this->fileName;
+    }
+
+    public function getLogFilePath()
+    {
+        return $this->config->getValue(self::CONFIG_LOG_FILE_PATH);
     }
 }
