@@ -3,34 +3,38 @@
     <default>
         <m2ddlogger>
             <event_logger>
-                <ddtags>
-                    <env><![CDATA[]]></env>
-                    <owner><![CDATA[]]></owner>
-                </ddtags>
                 <file>
                     <enabled>0</enabled>
                     <log_file_path><![CDATA[/var/log/datadog.log.json]]></log_file_path>
                     <enabled_in_developer_mode>0</enabled_in_developer_mode>
                     <acceptable_level>300</acceptable_level>
                 </file>
-                <http_endpoint>
-                    <cronenabled>0</cronenabled>
-                    <cronmax>50</cronmax>
-                    <enabled_in_developer_mode>0</enabled_in_developer_mode>
-                    <acceptable_level>300</acceptable_level>
-                    <account_region>EU</account_region>
-                    <intake_url>
-                        <USA><![CDATA[https://http-intake.logs.datadoghq.com/v1/]]></USA>
-                        <EU><![CDATA[https://http-intake.logs.datadoghq.eu/v1/]]></EU>
-                    </intake_url>
-                    <api_key><![CDATA[]]></api_key>
-                    <httpenabled>0</httpenabled>
-                </http_endpoint>
+                <ddtags>
+                    <env><![CDATA[]]></env>
+                    <owner><![CDATA[]]></owner>
+                </ddtags>
             </event_logger>
             <api_logger>
                 <enabled>0</enabled>
                 <allowed_log_headers>1</allowed_log_headers>
+                <log_api_event_as>300</log_api_event_as>
+                <api_event_log_request>1</api_event_log_request>
+                <api_event_log_response>1</api_event_log_response>
+                <api_event_log_format><![CDATA[JSON]]></api_event_log_format>
             </api_logger>
+            <http_endpoint>
+                <cronenabled>0</cronenabled>
+                <cronmax>50</cronmax>
+                <enabled_in_developer_mode>0</enabled_in_developer_mode>
+                <acceptable_level>300</acceptable_level>
+                <account_region>US</account_region>
+                <intake_url>
+                    <USA><![CDATA[https://http-intake.logs.datadoghq.com/v1/]]></USA>
+                    <EU><![CDATA[https://http-intake.logs.datadoghq.eu/v1/]]></EU>
+                </intake_url>
+                <api_key><![CDATA[fc4ff0a4b26f5f9b9819408ab5f7a815]]></api_key>
+                <httpenabled>0</httpenabled>
+            </http_endpoint>
         </m2ddlogger>
     </default>
 </config>

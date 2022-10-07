@@ -22,6 +22,10 @@ class RestApiLog
      */
     const API_LOGGER_ENABLED = 'm2ddlogger/api_logger/enabled';
     const API_LOGGER_ALLOWED_LOG_HEADERS = 'm2ddlogger/api_logger/allowed_log_headers';
+    const API_LOGGER_EVENT_AS = 'm2ddlogger/api_logger/log_api_event_as';
+    const API_LOGGER_LOG_REQUEST = 'm2ddlogger/api_logger/api_event_log_request';
+    const API_LOGGER_LOG_RESPONSE = 'm2ddlogger/api_logger/api_event_log_response';
+    const API_LOGGER_FORMAT = 'm2ddlogger/api_logger/api_event_log_format';
 
     /**
      * @var Logger
@@ -82,6 +86,11 @@ class RestApiLog
             if (!$this->_scopeConfig->getValue(self::API_LOGGER_ENABLED, ScopeInterface::SCOPE_STORE)) {
                 return;
             }
+            // If Enabled Api Log Request
+            if (!$this->_scopeConfig->getValue(self::API_LOGGER_LOG_REQUEST, ScopeInterface::SCOPE_STORE)) {
+                return;
+            }
+
 
             // Prepare Data For Log
             $requestedLogData = [
@@ -98,8 +107,11 @@ class RestApiLog
                 $requestedLogData['header'] = $this->getHeadersData($request->getHeaders());
             }
 
+            // format logs
+            $formattedLogData = $this->_serializer->serialize($requestedLogData);
+
             // Logging Data
-            $this->_logger->debug('Request = ' . $this->_serializer->serialize($requestedLogData));
+            $this->_logger->info($formattedLogData);
         } catch (\Exception $exception) {
             $this->_logger->critical($exception->getMessage(), ['exception' => $exception]);
         }
@@ -118,6 +130,11 @@ class RestApiLog
                 return;
             }
 
+            // If Enabled Api Log Response
+            if (!$this->_scopeConfig->getValue(self::API_LOGGER_LOG_RESPONSE, ScopeInterface::SCOPE_STORE)) {
+                return;
+            }
+
             // Prepare Data For Log
             $requestedLogData = [
                 'responseStatus' => $response->getReasonPhrase(),
@@ -130,8 +147,11 @@ class RestApiLog
                 $requestedLogData['header'] = $this->getHeadersData($response->getHeaders());
             }
 
+            // format logs
+            $formattedLogData = $this->_serializer->serialize($requestedLogData);
+
             // Logging Data
-            $this->_logger->debug('Response = ' . $this->_serializer->serialize($requestedLogData));
+            $this->_logger->info($formattedLogData);
         } catch (\Exception $exception) {
             $this->_logger->critical($exception->getMessage(), ['exception' => $exception]);
         }
@@ -152,4 +172,6 @@ class RestApiLog
         }
         return $headerLogData;
     }
+
+
 }

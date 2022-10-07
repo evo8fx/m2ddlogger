@@ -17,9 +17,9 @@ use Magento\Framework\HTTP\Client\CurlFactory;
  */
 class HttpClient implements DatadogHttpInterface
 {
-    const CONFIG_DD_HTTP_REGION = 'm2ddlogger/event_logger/http_endpoint/account_region';
-    const CONFIG_DD_HTTP_API_KEY = 'm2ddlogger/event_logger/http_endpoint/api_key';
-    const CONFIG_DD_HTTP_INTAKE_URLS = 'm2ddlogger/event_logger/http_endpoint/intake_url';
+    const CONFIG_DD_HTTP_REGION = 'm2ddlogger/http_endpoint/account_region';
+    const CONFIG_DD_HTTP_API_KEY = 'm2ddlogger/http_endpoint/api_key';
+    const CONFIG_DD_HTTP_INTAKE_URLS = 'm2ddlogger/http_endpoint/intake_url';
 
     /**
      * @var CurlFactory
