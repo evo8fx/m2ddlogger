@@ -103,11 +103,9 @@ class RestApiLog
             ];
 
             // Log Headers
-            /*
             if ($this->_scopeConfig->getValue(self::API_LOGGER_ALLOWED_LOG_HEADERS, ScopeInterface::SCOPE_STORE)) {
                 $requestedLogData['header'] = $this->getHeadersData($request->getHeaders());
             }
-            */
 
             // format logs
             $formattedLogData = $this->_serializer->serialize($requestedLogData);
@@ -132,6 +130,11 @@ class RestApiLog
                 return;
             }
 
+            // If Enabled Api Log Response
+            if (!$this->_scopeConfig->getValue(self::API_LOGGER_LOG_RESPONSE, ScopeInterface::SCOPE_STORE)) {
+                return;
+            }
+
             // Prepare Data For Log
             $requestedLogData = [
                 'responseStatus' => $response->getReasonPhrase(),
@@ -140,11 +143,9 @@ class RestApiLog
             ];
 
             // Log Headers
-            /*
             if ($this->_scopeConfig->getValue(self::API_LOGGER_ALLOWED_LOG_HEADERS, ScopeInterface::SCOPE_STORE)) {
                 $requestedLogData['header'] = $this->getHeadersData($response->getHeaders());
             }
-            */
 
             // format logs
             $formattedLogData = $this->_serializer->serialize($requestedLogData);
