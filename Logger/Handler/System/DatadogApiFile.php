@@ -53,7 +53,7 @@ class DatadogApiFile extends Base
      * @throws \Exception
      */
     public function __construct(
-        DatadogFormatter $formatter,
+        DatadogApiFormatter $formatter,
         ScopeConfigInterface $config,
         State $state,
         DriverInterface $filesystem,
