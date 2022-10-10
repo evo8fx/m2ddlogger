@@ -43,9 +43,9 @@ class DatadogApiFile extends Base
     private $state;
 
     /**
-     * DatadogFile constructor.
+     * DatadogApiFile constructor.
      *
-     * @param DatadogFormatter $formatter
+     * @param DatadogApiFormatter $formatter
      * @param ScopeConfigInterface $config
      * @param State $state
      * @param DriverInterface $filesystem
