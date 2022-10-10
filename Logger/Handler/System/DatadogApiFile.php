@@ -5,7 +5,7 @@
 
 namespace Evo8fx\M2ddlogger\Logger\Handler\System;
 
-use Evo8fx\M2ddlogger\Formatter\DatadogFormatter;
+use Evo8fx\M2ddlogger\Formatter\DatadogApiFormatter;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\State;
 use Magento\Framework\Filesystem\DriverInterface;
@@ -28,7 +28,7 @@ class DatadogApiFile extends Base
     /**
      * @var string
      */
-    protected $fileName = '/var/log/datadog.restapi.json';
+    protected $fileName = '/var/log/datadog.restapi_2.json';
     /**
      * @var Exception
      */

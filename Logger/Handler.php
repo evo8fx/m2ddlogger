@@ -20,5 +20,5 @@ class Handler extends Base
      * File name
      * @var string
      */
-    protected $fileName = '/var/log/datadog.restapi.json';
+    protected $fileName = '/var/log/datadog.restapi_1.json';
 }

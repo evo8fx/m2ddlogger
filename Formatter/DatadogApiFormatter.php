@@ -12,13 +12,13 @@ use Monolog\Formatter\JsonFormatter;
 use Monolog\Utils;
 
 /**
- * Class DatadogFormatter
+ * Class DatadogApiFormatter
  *
  * @package Evo8fx\M2ddlogger\Formatter
  */
 class DatadogApiFormatter extends AbstractFormatter implements FormatterInterface
 {
-    const CONFIG_LOG_FILE_PATH = 'm2ddlogger/event_logger/file/log_file_path';
+    //const CONFIG_LOG_FILE_PATH = 'm2ddlogger/event_logger/file/log_file_path';
     const CONFIG_DD_TAGS = 'm2ddlogger/event_logger/ddtags';
     /**
      * @var ScopeConfigInterface
@@ -28,7 +28,7 @@ class DatadogApiFormatter extends AbstractFormatter implements FormatterInterfac
     * @var StoreManagerInterface
     */
     protected $storeManager;
-    public $log_file_path;
+    public $log_file_path = '/var/log/datadog.restapi.json';
 
     /**
       * DatadogFormatter constructor.
@@ -41,7 +41,7 @@ class DatadogApiFormatter extends AbstractFormatter implements FormatterInterfac
     ) {
          $this->config = $config;
          $this->storeManager = $storeManager;
-         $this->log_file_path = $this->config->getValue(self::CONFIG_LOG_FILE_PATH);
+         //$this->log_file_path = $this->config->getValue(self::CONFIG_LOG_FILE_PATH);
     }
 
     /**
