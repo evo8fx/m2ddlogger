@@ -32,7 +32,7 @@
                     <USA><![CDATA[https://http-intake.logs.datadoghq.com/v1/]]></USA>
                     <EU><![CDATA[https://http-intake.logs.datadoghq.eu/v1/]]></EU>
                 </intake_url>
-                <api_key><![CDATA[fc4ff0a4b26f5f9b9819408ab5f7a815]]></api_key>
+                <api_key><![CDATA[]]></api_key>
                 <httpenabled>0</httpenabled>
             </http_endpoint>
         </m2ddlogger>
